@@ -12,6 +12,7 @@ function Navigator() {
         <Stack.Navigator initialRouteName={Splash} screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Splash" component={Splash} />
           <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Notif" component={Notif} />
         </Stack.Navigator>
       </NavigationContainer>
     );

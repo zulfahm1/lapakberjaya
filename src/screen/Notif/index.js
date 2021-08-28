@@ -1,11 +1,12 @@
 import React from 'react'
 import { View, Text } from 'react-native'
+import WebView from 'react-native-webview'
 
-const Notif = () => {
+const Notif = ({route, navigation}) => {
     return (
-        <View>
-            <Text>notif</Text>
-        </View>
+        <WebView
+            source = {{ uri: route.params  }}
+        />
     )
 }
 
