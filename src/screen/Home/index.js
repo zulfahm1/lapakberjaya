@@ -5,28 +5,28 @@ import OneSignal from 'react-native-onesignal'
 
 const Home = ({navigation}) => {
 
-  const [canGoBack, setCanGoBack] = useState(false)
   const [canGoForward, setCanGoForward] = useState(false)
   const [currentUrl, setCurrentUrl] = useState('')
-  const webviewRef = useRef()
+  const WEBVIEW_REF = useRef()
+  const [canGoBack, setCanGoBack] = useState(false)
 
-  console.log('web view ref',webviewRef.current)
-  
+  const handleBackButton = () => {
+    WEBVIEW_REF.current.goBack()
+    return true
+  }
+
+  const onNavigationStateChange = (navState) => {
+    setCanGoBack(navState.canGoBack)
+  }
+
   useEffect(() => {
-    // console.log(canGoBack)
-  }, [canGoBack])
-  
-  const backButtonHandler = () => {
-    if (webviewRef.current) webviewRef.current.goBack()
-  }
-  
-  
-  const frontButtonHandler = () => {
-    if (webviewRef.current) webviewRef.current.goForward()
-  }
+    BackHandler.addEventListener('hardwareBackPress', handleBackButton)
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', handleBackButton)
+    }
+  }, [])
 
-  //console.log(webViewRef)
-
+  // notif
   useEffect(() => {
     NotifConfig()
   }, [])
@@ -34,7 +34,7 @@ const Home = ({navigation}) => {
   const NotifConfig = () => {
     //OneSignal Init Code
     OneSignal.setLogLevel(6, 0);
-    OneSignal.setAppId("9fa33446-1590-48b9-9b67-13dfebda401c");
+    OneSignal.setAppId("49685a18-b999-40d6-98b6-4206533b3ec9");
     //END OneSignal Init Code
 
      //Method for handling notifications received while app in foreground
@@ -70,11 +70,12 @@ const Home = ({navigation}) => {
 
   return (
     <WebView
-      source={{ uri: 'https://app.lapakberjaya.com/' }}
+      source={{ uri: 'https://wisatametro.com/app' }}
       // onNavigationStateChange={(param) => handleBack(param)}
 
-      ref={webviewRef}
+      ref={WEBVIEW_REF}
       startInLoadingState={true}
+      onNavigationStateChange={onNavigationStateChange}
       renderLoading={() => (
         <ActivityIndicator
           color='black'
@@ -82,11 +83,6 @@ const Home = ({navigation}) => {
           style={styles.flexContainer}
         />
       )}
-      onNavigationStateChange={navState => {
-        setCanGoBack(navState.canGoBack)
-        setCanGoForward(navState.canGoForward)
-        setCurrentUrl(navState.url)
-      }}
     />
   )
 }

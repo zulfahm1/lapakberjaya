@@ -9,7 +9,7 @@ const Splash = ({navigation}) => {
       }, [])
     return (
         <View style={{ flex:1, backgroundColor: '#fff', justifyContent: 'center', alignItems: 'center' }}>
-            <Image style={{ height: '20%', width: '40%' }} source={require('../../assets/lapakberjaya_android.png')} />
+            <Image style={{ height: '20%', width: '40%' }} source={require('../../assets/logo_wisatametro.png')} />
         </View>
     )
 }
